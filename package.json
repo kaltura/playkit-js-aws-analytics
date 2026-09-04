@@ -35,7 +35,7 @@
     "@babel/plugin-transform-react-jsx": "^7.23.4",
     "@babel/plugin-transform-runtime": "^7.23.7",
     "@babel/preset-env": "^7.23.8",
-    "@babel/preset-typescript": "^7.23.3",
+    "@babel/preset-typescript": "^8.0.1",
     "@babel/runtime": "^7.23.8",
     "@playkit-js/browserslist-config": "1.0.8",
     "@playkit-js/kaltura-player-js": "^3.17.97",
