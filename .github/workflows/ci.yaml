@@ -33,7 +33,7 @@ jobs:
           node-version: '24'
           cache: 'npm'
       - run: npm ci
-      - uses: cypress-io/github-action@v6
+      - uses: cypress-io/github-action@v7
         with:
           install: false
           build: npm run test:prepare
