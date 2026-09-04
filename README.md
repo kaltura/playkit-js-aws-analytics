@@ -1,6 +1,3 @@
-[![](https://img.shields.io/npm/v/@playkit-js/playkit-js-aws-analytics/latest.svg)](https://www.npmjs.com/package/@playkit-js/playkit-js-aws-analytics)
-[![](https://img.shields.io/npm/v/@playkit-js/playkit-js-aws-analytics/canary.svg)](https://www.npmjs.com/package/@playkit-js/playkit-js-aws-analytics/v/canary)
-
 # playkit-js-aws-analytics
 
 Kaltura Player JS plugin that bridges player analytics to the AWS TV Libra framework via `CustomEvent` dispatch.
@@ -13,19 +10,19 @@ Drop-in replacement for the analytics layer in the AWS TV video player — all 1
 <!-- 1. Load the Kaltura Player -->
 <script src="https://cdn.jsdelivr.net/npm/@playkit-js/kaltura-player-js@latest/dist/kaltura-ovp-player.js"></script>
 
-<!-- 2. Load the plugin -->
-<script src="playkit-aws-analytics.js"></script>
+<!-- 2. Load the plugin (served via jsDelivr straight from this repo, no npm registry involved) -->
+<script src="https://cdn.jsdelivr.net/gh/kaltura/playkit-js-aws-analytics@latest/dist/playkit-aws-analytics.js"></script>
 
 <!-- 3. Set up the player — zero-config (videoId & videoTitle auto-resolve from entry) -->
 <script>
   const player = KalturaPlayer.setup({
     targetId: 'player-container',
-    provider: { partnerId: YOUR_PARTNER_ID, uiConfId: YOUR_UICONF_ID },
+    provider: { partnerId: 6492412, uiConfId: 57956092 },
     plugins: {
       awsAnalytics: {}
     }
   });
-  player.loadMedia({ entryId: '1_abc123' });
+  player.loadMedia({ entryId: '1_t56a4qrt' });
 </script>
 ```
 
@@ -157,17 +154,33 @@ npm run test:watch
 
 ## Deployment
 
-```bash
-npm run build
+This plugin is not published to npm. It's distributed straight from this GitHub repo via jsDelivr, which serves any tagged commit's files directly:
+
+```
+https://cdn.jsdelivr.net/gh/kaltura/playkit-js-aws-analytics@latest/dist/playkit-aws-analytics.js
 ```
 
-This produces `dist/playkit-aws-analytics.js` (UMD bundle, ~9.5 KB minified) and `dist/playkit-aws-analytics.js.map`.
+Pin to a specific tag instead of `@latest` in production (e.g. `@v1.2.0` — tags are `v`-prefixed).
+
+To cut a release:
+
+```bash
+npm run release   # bumps version, builds dist/, commits, tags
+git push && git push --tags
+```
+
+`dist/` is committed at release time so jsDelivr's GitHub CDN has something to serve — see `scripts/release.sh`.
 
 Load the bundle after the Kaltura Player script — the plugin auto-registers as `awsAnalytics`. An empty `awsAnalytics: {}` in your plugin config is all that's needed to activate it.
 
 ## Compatibility
 
 Tested with `@playkit-js/kaltura-player-js` v3.17.x. Compatible with any Kaltura OVP or OTT player that uses the standard plugin system.
+
+## Further reading
+
+- [Kaltura Player Embed Guide](https://kaltura.md/KALTURA_PLAYER_EMBED_GUIDE/)
+- [playkit-js-plugin-example](https://github.com/kaltura/playkit-js-plugin-example) — reference implementation for custom player plugins
 
 ## License
 

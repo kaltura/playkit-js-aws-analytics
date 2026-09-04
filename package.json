@@ -4,10 +4,6 @@
   "description": "Kaltura Player plugin that replicates AWS TV video analytics via CustomEvent bridge to the Libra framework",
   "main": "dist/playkit-aws-analytics.js",
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist/**/*",
-    "src/**/*"
-  ],
   "license": "AGPL-3.0",
   "keywords": [
     "kaltura",
@@ -30,7 +26,8 @@
     "cy:run:chrome": "cypress run --browser chrome --config video=false",
     "test:prepare": "npm run build && copyfiles -f ./dist/playkit-aws-analytics.js ./dist/playkit-aws-analytics.js.map ./cypress/public",
     "test:watch": "npm run test:prepare && npm run cy:open",
-    "test": "npm run test:prepare && npm run cy:run:chrome"
+    "test": "npm run test:prepare && npm run cy:run:chrome",
+    "release": "bash scripts/release.sh"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
@@ -41,7 +38,7 @@
     "@babel/preset-typescript": "^7.23.3",
     "@babel/runtime": "^7.23.8",
     "@playkit-js/browserslist-config": "1.0.8",
-    "@playkit-js/kaltura-player-js": "^3.17.9-canary.0-0c8731f",
+    "@playkit-js/kaltura-player-js": "^3.17.97",
     "@playkit-js/webpack-common": "^1.0.3",
     "@types/chai": "^4.3.3",
     "@types/mocha": "^9.1.1",
@@ -66,9 +63,6 @@
     "cypress": "14.1.0",
     "eslint-plugin-cypress": "^3.3.0",
     "copyfiles": "^2.4.1"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "browserslist": [
     "extends @playkit-js/browserslist-config"
