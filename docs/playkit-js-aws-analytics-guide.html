@@ -335,11 +335,11 @@
 <div class="cover">
   <h1>playkit-js-aws-analytics</h1>
   <div class="subtitle">Complete Plugin Guide</div>
-  <div class="badge">Kaltura Player JS Plugin &middot; v1.0.0</div>
+  <div class="badge">Kaltura Player JS Plugin &middot; v1.1.0</div>
   <div class="meta">
     Bridging Kaltura Player analytics to the AWS TV Libra framework<br>
     12 analytics events &middot; 3 CustomEvent channels &middot; Full E2E test coverage<br><br>
-    April 2026
+    September 2026
   </div>
 </div>
 
@@ -797,10 +797,11 @@ Captures player errors with code, message, videoId, and videoTitle. Sent on the 
   }
 }</code></pre>
 
-<h3>Option B: NPM</h3>
-<pre><code>npm install @playkit-js/playkit-js-aws-analytics</code></pre>
-<pre><code>import '@playkit-js/playkit-js-aws-analytics';
-// Plugin auto-registers as 'awsAnalytics' on import</code></pre>
+<h3>Option B: jsDelivr from GitHub</h3>
+<p>This plugin is not published to npm. It's distributed straight from the GitHub repo via jsDelivr, which serves any tagged commit's files directly:</p>
+<pre><code>&lt;script src="https://cdn.jsdelivr.net/gh/kaltura/playkit-js-aws-analytics@latest
+  /dist/playkit-aws-analytics.js"&gt;&lt;/script&gt;</code></pre>
+<p>Pin to a specific tag instead of <code>@latest</code> in production (e.g. <code>@v1.1.0</code> &mdash; tags are <code>v</code>-prefixed).</p>
 
 <div class="callout callout-info">
   <div class="callout-title">Auto-Registration</div>
@@ -855,7 +856,7 @@ document.body.addEventListener('custom_awstv_video-player-state', (e) => {
 <table>
   <tr><th>Command</th><th>What It Does</th></tr>
   <tr><td><code>npm run serve</code></td><td>Starts webpack dev server with the demo page at <code>http://localhost:8080</code></td></tr>
-  <tr><td><code>npm run build</code></td><td>Production build &rarr; <code>dist/playkit-aws-analytics.js</code> (minified UMD, ~9.5 KB)</td></tr>
+  <tr><td><code>npm run build</code></td><td>Production build &rarr; <code>dist/playkit-aws-analytics.js</code> (minified UMD, ~11.1 KB)</td></tr>
   <tr><td><code>npm run type-check</code></td><td>Runs TypeScript compiler in check-only mode</td></tr>
   <tr><td><code>npm run lint</code></td><td>ESLint + Prettier check</td></tr>
   <tr><td><code>npm test</code></td><td>Full pipeline: build &rarr; copy bundle &rarr; Cypress E2E (37 tests in Chrome)</td></tr>
@@ -897,7 +898,7 @@ document.body.addEventListener('custom_awstv_video-player-state', (e) => {
 <ol>
   <li><strong>Build the production bundle:</strong>
     <pre><code>npm run build</code></pre>
-    This produces <code>dist/playkit-aws-analytics.js</code> (~9.5 KB minified) and its source map.
+    This produces <code>dist/playkit-aws-analytics.js</code> (~11.1 KB minified) and its source map.
   </li>
 
   <li><strong>Run the full test suite:</strong>
@@ -939,7 +940,7 @@ document.body.addEventListener('custom_awstv_video-player-state', (e) => {
 <p>The plugin is accessed at runtime via <code>player._pluginManager.get('awsAnalytics')</code>. While <code>_pluginManager</code> is technically an internal API, this is the standard pattern used by all Kaltura playkit-js plugins and is stable across player versions.</p>
 
 <h3>18.6 Bundle Size</h3>
-<p>The production bundle is <strong>~9.5 KB</strong> minified (with source map). It has <strong>zero runtime dependencies</strong> beyond the Kaltura Player itself. The only external reference is <code>BasePlugin</code> from <code>@playkit-js/kaltura-player-js</code>, which is resolved as a webpack external (the player is already loaded on the page).</p>
+<p>The production bundle is <strong>~11.1 KB</strong> minified (with source map). It has <strong>zero runtime dependencies</strong> beyond the Kaltura Player itself. The only external reference is <code>BasePlugin</code> from <code>@playkit-js/kaltura-player-js</code>, which is resolved as a webpack external (the player is already loaded on the page).</p>
 
 <h3>18.7 Browser Compatibility</h3>
 <p>The plugin is compiled via Babel with the Kaltura Player's shared browserslist config, targeting the same browsers as the player itself. It uses only standard DOM APIs (<code>CustomEvent</code>, <code>EventTarget</code>, <code>TimeRanges</code>, <code>visibilitychange</code>) available in all modern browsers.</p>
@@ -953,15 +954,16 @@ document.body.addEventListener('custom_awstv_video-player-state', (e) => {
 </ul>
 
 <h3>18.9 CI/CD</h3>
-<p>Three GitHub Actions workflows are included:</p>
+<p>A single GitHub Actions workflow (<code>ci.yaml</code>) runs on every pull request and push to <code>main</code>:</p>
 <ul>
-  <li><strong>Pull Requests:</strong> Runs Cypress tests, build, and lint</li>
-  <li><strong>Canary (push to main):</strong> Runs tests and publishes a canary npm version</li>
-  <li><strong>Production (manual dispatch):</strong> Full build/lint/type-check, then publishes to npm and deploys to CDN</li>
+  <li><strong>build-and-lint:</strong> Build, type-check, ESLint/Prettier, and <code>npm audit</code></li>
+  <li><strong>e2e:</strong> Full 37-test Cypress suite in real Chrome, against a live Kaltura entry (needs <code>build-and-lint</code>)</li>
+  <li><strong>deploy-pages</strong> (push to <code>main</code> only): Publishes <code>docs/</code> to GitHub Pages, gated on both prior jobs passing</li>
 </ul>
+<p>There is no npm publish step &mdash; the plugin is never published to the npm registry. Releases are cut with <code>npm run release</code> (bumps version, builds <code>dist/</code>, commits, tags), and jsDelivr serves the tagged commit's <code>dist/</code> directly from GitHub.</p>
 
 <div class="footer-note">
-  playkit-js-aws-analytics v1.0.0 &middot; AGPL-3.0 License &middot; April 2026
+  playkit-js-aws-analytics v1.1.0 &middot; AGPL-3.0 License &middot; September 2026
 </div>
 
 </body>
