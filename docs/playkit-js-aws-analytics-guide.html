@@ -956,7 +956,7 @@ document.body.addEventListener('custom_awstv_video-player-state', (e) => {
 <ul>
   <li><strong>build-and-lint:</strong> Build, type-check, ESLint/Prettier, and <code>npm audit</code></li>
   <li><strong>e2e:</strong> Full 37-test Cypress suite in real Chrome, against a live Kaltura entry (needs <code>build-and-lint</code>)</li>
-  <li><strong>deploy-pages</strong> (push to <code>main</code> only): Publishes <code>docs/</code> to GitHub Pages, gated on both prior jobs passing</li>
+  <li><strong>deploy-pages:</strong> Publishes <code>docs/</code> to GitHub Pages (push to <code>main</code> only), gated on both prior jobs passing</li>
 </ul>
 <p>There is no npm publish step &mdash; the plugin is never published to the npm registry. Releases are cut with <code>npm run release</code> (bumps version, builds <code>dist/</code>, commits, tags), and jsDelivr serves the tagged commit's <code>dist/</code> directly from GitHub.</p>
 
