@@ -1,6 +1,6 @@
 const PARTNER_ID = 6492412;
-const UICONF_ID = 57927432;
-const ENTRY_ID = '1_io380akk';
+const UICONF_ID = 57956092;
+const ENTRY_ID = '1_t56a4qrt';
 const VIDEO_TITLE = 'Test Video';
 
 export { ENTRY_ID, VIDEO_TITLE };

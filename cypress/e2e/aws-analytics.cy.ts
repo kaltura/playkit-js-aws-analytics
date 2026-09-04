@@ -331,7 +331,7 @@ describe('AWS Analytics Plugin', () => {
   // ─────────────────── Complete threshold ───────────────────
   describe('Complete threshold', () => {
     it('fires Complete when watched ratio exceeds threshold', () => {
-      setupPlayer({ completeThresholdPercent: 0.005 });
+      setupPlayer({ completeThresholdPercent: 0.001 });
       withPlayer((p) => p.play());
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(8000);
@@ -341,7 +341,7 @@ describe('AWS Analytics Plugin', () => {
     });
 
     it('Complete payload includes duration as a string', () => {
-      setupPlayer({ completeThresholdPercent: 0.005 });
+      setupPlayer({ completeThresholdPercent: 0.001 });
       withPlayer((p) => p.play());
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(8000);
