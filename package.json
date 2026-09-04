@@ -37,7 +37,7 @@
     "@babel/preset-env": "^7.23.8",
     "@babel/preset-typescript": "^7.23.3",
     "@babel/runtime": "^7.23.8",
-    "@playkit-js/browserslist-config": "1.0.8",
+    "@playkit-js/browserslist-config": "1.0.11",
     "@playkit-js/kaltura-player-js": "^3.17.97",
     "@playkit-js/webpack-common": "^1.0.3",
     "@types/chai": "^4.3.3",
