@@ -4,6 +4,8 @@
 # involved), so dist/ must be committed at the tagged commit.
 set -euo pipefail
 
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
 if [[ -n "$(git status --porcelain)" ]]; then
   echo "Working tree is not clean. Commit or stash changes before releasing." >&2
   exit 1
@@ -20,4 +22,4 @@ git commit -m "chore(release): ${VERSION}"
 git tag "${VERSION}"
 
 echo "Release ${VERSION} committed and tagged locally."
-echo "Push with: git push && git push origin ${VERSION}"
+echo "Push with: git push && git push --tags"

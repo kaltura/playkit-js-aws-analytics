@@ -160,7 +160,7 @@ This plugin is not published to npm. It's distributed straight from this GitHub 
 https://cdn.jsdelivr.net/gh/kaltura/playkit-js-aws-analytics@latest/dist/playkit-aws-analytics.js
 ```
 
-Pin to a specific version instead of `@latest` in production (e.g. `@1.2.0`).
+Pin to a specific tag instead of `@latest` in production (e.g. `@v1.2.0` — tags are `v`-prefixed).
 
 To cut a release:
 
