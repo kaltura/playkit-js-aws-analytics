@@ -51,7 +51,7 @@ plugins: {
 }
 ```
 
-> **Why no endpoint URLs or API keys?** This plugin is a CustomEvent bridge, not an HTTP transport. It dispatches browser events that the Libra framework (already on the page) listens for. Libra handles all network transport, auth, and batching.
+> **Why no endpoint URLs or API keys?** This plugin is a CustomEvent bridge, not an HTTP transport. It dispatches browser events that AWS's Libra/Experience Builder framework (already on the page) listens for. That framework relays events through AWS's internal AWSMA layer to Adobe Analytics, which handles all network transport, auth, and batching. The plugin itself has zero network code.
 
 ## Analytics Events
 

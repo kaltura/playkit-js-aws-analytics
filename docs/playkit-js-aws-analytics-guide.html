@@ -400,7 +400,7 @@
 <!-- ── 2 ── -->
 <h2>2. Why It Exists</h2>
 
-<p>The AWS TV video player currently uses a custom-built analytics layer that sends events to the <strong>Libra framework</strong> via browser <code>CustomEvent</code> dispatch. Downstream systems &mdash; dashboards, engagement metrics, content recommendations, and operational monitoring &mdash; all depend on receiving these specific events in a specific format.</p>
+<p>The AWS TV video player currently uses a custom-built analytics layer that sends events to <strong>Libra</strong>, part of AWS's internal Experience Builder platform, via browser <code>CustomEvent</code> dispatch. Libra relays these events through AWS's internal AWSMA layer to Adobe Analytics, which is the actual backend behind dashboards, engagement metrics, content recommendations, and operational monitoring.</p>
 
 <p>When migrating to the Kaltura Player, these analytics must continue working identically. Rather than requiring the AWS TV team to rewire their entire analytics pipeline, this plugin ensures the Kaltura Player speaks the same language.</p>
 
@@ -461,7 +461,7 @@
       <td class="arrow-cell" style="width: 5%;">&#x2192;</td>
       <td style="width: 22%;"><div class="box" style="border-color: #16a34a; background: #f0fdf4; color: #14532d;">AWS Analytics Plugin<div class="box-label">translates to CustomEvents</div></div></td>
       <td class="arrow-cell" style="width: 5%;">&#x2192;</td>
-      <td style="width: 22%;"><div class="box" style="border-color: #9333ea; background: #faf5ff; color: #581c87;">Libra Framework<div class="box-label">listens on document / body</div></div></td>
+      <td style="width: 22%;"><div class="box" style="border-color: #9333ea; background: #faf5ff; color: #581c87;">Libra Framework<div class="box-label">listens on document / body, relays via AWSMA to Adobe Analytics</div></div></td>
     </tr>
   </table>
   <div style="background: #fff; border: 1px solid #d8dee4; border-radius: 6px; padding: 10px 16px; max-width: 340px; margin: 0 auto;">
@@ -472,7 +472,7 @@
   </div>
 </div>
 
-<p>The plugin sits between the Kaltura Player's internal event system and the browser's <code>CustomEvent</code> API. It listens for native player events (play, pause, timeupdate, etc.), applies business logic (deduplication, thresholds, seek filtering), and dispatches <code>CustomEvent</code> objects that the Libra framework's existing listeners pick up unchanged.</p>
+<p>The plugin sits between the Kaltura Player's internal event system and the browser's <code>CustomEvent</code> API. It listens for native player events (play, pause, timeupdate, etc.), applies business logic (deduplication, thresholds, seek filtering), and dispatches <code>CustomEvent</code> objects that the Libra framework's existing listeners pick up unchanged. From there, Libra (part of AWS's Experience Builder platform) relays the events through AWS's internal AWSMA layer to Adobe Analytics, the actual analytics backend.</p>
 
 <!-- ── 5 ── -->
 <h2>5. Configuration Options</h2>
@@ -518,7 +518,7 @@
 
 <div class="callout callout-info">
   <div class="callout-title">Why No Endpoint URLs or API Keys?</div>
-  This plugin is a <strong>CustomEvent bridge</strong>, not an HTTP transport. It dispatches browser events that the Libra framework (already loaded on the AWS TV page) listens for. Libra handles all network transport, authentication, batching, and retries. The plugin has zero network dependencies of its own.
+  This plugin is a <strong>CustomEvent bridge</strong>, not an HTTP transport. It dispatches browser events that AWS's Libra/Experience Builder framework (already loaded on the AWS TV page) listens for. That framework relays events through AWS's internal AWSMA layer to Adobe Analytics, which handles all network transport, authentication, batching, and retries. The plugin has zero network dependencies of its own.
 </div>
 
 

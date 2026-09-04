@@ -466,7 +466,7 @@
 <div class="hero">
   <div class="hero-badge">Kaltura Player Plugin</div>
   <h1>playkit-js-aws-analytics</h1>
-  <p>Drop-in Kaltura Player plugin that replicates all 12 AWS TV analytics events, auto-detected from native player events and bridged to the Libra framework via CustomEvent dispatch.</p>
+  <p>Drop-in Kaltura Player plugin that replicates all 12 AWS TV analytics events, auto-detected from native player events and bridged to AWS's Libra/Experience Builder framework via CustomEvent dispatch, which relays to Adobe Analytics.</p>
   <p style="color: var(--text-muted); font-size: 14px; max-width: 640px; margin: 10px auto 0;">
     Further reading:
     <a href="https://kaltura.md/KALTURA_PLAYER_EMBED_GUIDE/">Kaltura Player Embed Guide</a>
@@ -535,7 +535,7 @@
   <div class="section-label">Architecture</div>
   <div class="section-title">How It Works</div>
   <div class="section-desc">
-    The plugin sits between the Kaltura Player and the Libra analytics framework, translating native player events into the exact CustomEvent format Libra expects.
+    The plugin sits between the Kaltura Player and AWS's Libra/Experience Builder framework, translating native player events into the exact CustomEvent format Libra expects. From there, AWS's internal AWSMA layer relays the events to Adobe Analytics.
   </div>
 
   <div class="arch-flow">
@@ -556,9 +556,12 @@
     <div class="arch-arrow">&#x2192;</div>
     <div class="arch-box libra">
       <h4>Libra Framework</h4>
-      <p>Listens for CustomEvents, handles network transport</p>
+      <p>Listens for CustomEvents, relays via AWSMA to Adobe Analytics</p>
     </div>
   </div>
+  <p class="section-desc" style="margin-top: 16px;">
+    "Libra" is part of AWS's internal Experience Builder platform. It has no network code of its own here &mdash; it forwards events through AWS's internal AWSMA wrapper, which sends them to Adobe Analytics (Omniture/Sitecatalyst) as the actual backend.
+  </p>
 
   <h3 style="margin-top: 32px; margin-bottom: 16px; font-size: 18px;">3 CustomEvent Channels</h3>
   <div class="channels-grid">
@@ -741,7 +744,7 @@ plugin.<span class="fn">sendUiEvent</span>(<span class="str">'QualityChange'</sp
 
   <div class="callout">
     <div class="callout-title">Why no endpoint URLs or API keys?</div>
-    <p>This plugin is a <strong>CustomEvent bridge</strong>, not an HTTP transport. It dispatches browser events that the Libra framework (already on the page) listens for. Libra handles all network transport, authentication, batching, and retries.</p>
+    <p>This plugin is a <strong>CustomEvent bridge</strong>, not an HTTP transport. It dispatches browser events that AWS's Libra/Experience Builder framework (already on the page) listens for. That framework relays events through AWS's internal AWSMA layer to Adobe Analytics, which handles all network transport, authentication, batching, and retries. The plugin itself has zero network code.</p>
   </div>
 </section>
 
